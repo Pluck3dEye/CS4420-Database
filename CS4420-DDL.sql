@@ -53,13 +53,14 @@ CREATE TABLE CollaborationEvent (
 
 -- Relationship entities
 CREATE TABLE PartnerAffiliation (
-  partner_id  INT NOT NULL,
-  unit_id     INT NOT NULL,
-  start_date  DATE NOT NULL,
-  remarks     TEXT,
-  status       ENUM('Prospect','Active','Inactive','Suspended'),
-  notes       TEXT,
-  PRIMARY KEY (partner_id, unit_id),
+  affiliation_id INT AUTO_INCREMENT PRIMARY KEY,
+  partner_id     INT NOT NULL,
+  unit_id        INT NOT NULL,
+  start_date     DATE NOT NULL,
+  remarks        TEXT,
+  status         ENUM('Prospect','Active','Inactive','Suspended'),
+  notes          TEXT,
+  UNIQUE KEY uq_affiliation_partner_unit (partner_id, unit_id),
   CONSTRAINT fk_affiliation_partner
     FOREIGN KEY (partner_id)
     REFERENCES Partner(partner_id)
@@ -70,22 +71,23 @@ CREATE TABLE PartnerAffiliation (
     ON DELETE CASCADE
 );
 
+
 CREATE TABLE Agreement (
   agreement_id   INT AUTO_INCREMENT PRIMARY KEY,
   title          VARCHAR(255) NOT NULL,
-  partner_id     INT NOT NULL,
-  unit_id        INT NOT NULL,
+  affiliation_id INT NOT NULL,
   agreement_type VARCHAR(100),
   start_date     DATE,
   end_date       DATE,
-  status       ENUM('Prospect','Active','Inactive','Suspended'),
+  status         ENUM('Prospect','Active','Inactive','Suspended'),
   file_link      VARCHAR(255),
   notes          TEXT,
   CONSTRAINT fk_agreement_affiliation
-    FOREIGN KEY (partner_id, unit_id)
-    REFERENCES PartnerAffiliation(partner_id, unit_id)
+    FOREIGN KEY (affiliation_id)
+    REFERENCES PartnerAffiliation(affiliation_id)
     ON DELETE CASCADE
 );
+
 
 CREATE TABLE ContactPoint (
   contact_id          INT AUTO_INCREMENT PRIMARY KEY,
@@ -139,7 +141,7 @@ CREATE TABLE Invoice (
   event_id          INT NOT NULL,
   issue_date        DATE NOT NULL,
   amount            DECIMAL(12,2) NOT NULL,
-  status       ENUM('Unpaid','Paid','Cancelled'),
+  status      		ENUM('Unpaid','Paid','Cancelled'),
   reference_number  VARCHAR(100),
   notes             TEXT,
   CONSTRAINT fk_invoice_event

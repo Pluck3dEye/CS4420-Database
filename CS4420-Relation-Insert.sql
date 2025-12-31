@@ -57,14 +57,15 @@ INSERT INTO PartnerAffiliation (partner_id, unit_id, start_date, remarks, status
   (8, 3, '2025-09-25', 'Materials research exploration', 'Prospect', 'Pilot study.'),
   (9, 1, '2023-03-01', 'Outreach and scholarships', 'Active', 'Community outreach.');
 
-INSERT INTO Agreement (agreement_id, title, partner_id, unit_id, agreement_type, start_date, end_date, status, file_link, notes) VALUES
-  (1, 'Robotics Lab Sponsorship Agreement', 1, 7, 'Sponsorship', '2025-09-01', '2027-08-31', 'Active', '/files/agreements/robotics_sponsor.pdf', 'Annual sponsorship + equipment.'),
-  (2, 'Engineering Advisory MOU', 1, 2, 'MOU', '2025-10-15', '2026-10-14', 'Active', '/files/agreements/eng_advisory_mou.pdf', 'Advisory board participation.'),
-  (3, 'Campus Microgrid Pilot Agreement', 2, 8, 'Project', '2025-08-20', '2026-12-31', 'Active', '/files/agreements/microgrid_pilot.pdf', 'Pilot implementation on campus.'),
-  (4, 'Smart Grid Equipment Donation Letter', 2, 6, 'Donation', '2025-11-01', '2026-11-01', 'Active', '/files/agreements/smartgrid_donation.pdf', 'Donation of lab equipment.'),
-  (5, 'FinTech Competition Sponsorship', 5, 4, 'Sponsorship', '2025-12-01', '2026-12-31', 'Active', '/files/agreements/fintech_sponsor.pdf', 'Cash + mentors.'),
-  (6, 'Cloud Credits & Training Agreement', 6, 5, 'Service', '2025-05-18', '2026-05-17', 'Active', '/files/agreements/cloud_credits.pdf', 'Credits + bootcamp support.'),
-  (7, 'University Outreach Partnership', 9, 1, 'Partnership', '2023-03-01', '2026-02-28', 'Active', '/files/agreements/opened_outreach.pdf', 'Scholarships and outreach.');
+INSERT INTO Agreement (agreement_id, title, affiliation_id, agreement_type, start_date, end_date, status, file_link, notes) VALUES
+  (1, 'Robotics Lab Sponsorship Agreement', 1, 'Sponsorship', '2025-09-01', '2027-08-31', 'Active', '/files/agreements/robotics_sponsor.pdf', 'Annual sponsorship + equipment.'),
+  (2, 'Engineering Advisory MOU', 2, 'MOU', '2025-10-15', '2026-10-14', 'Active', '/files/agreements/eng_advisory_mou.pdf', 'Advisory board participation.'),
+  (3, 'Campus Microgrid Pilot Agreement', 3, 'Project', '2025-08-20', '2026-12-31', 'Active', '/files/agreements/microgrid_pilot.pdf', 'Pilot implementation on campus.'),
+  (4, 'Smart Grid Equipment Donation Letter', 4, 'Donation', '2025-11-01', '2026-11-01', 'Active', '/files/agreements/smartgrid_donation.pdf', 'Donation of lab equipment.'),
+  (5, 'FinTech Competition Sponsorship', 7, 'Sponsorship', '2025-12-01', '2026-12-31', 'Active', '/files/agreements/fintech_sponsor.pdf', 'Cash + mentors.'),
+  (6, 'Cloud Credits & Training Agreement', 8, 'Service', '2025-05-18', '2026-05-17', 'Active', '/files/agreements/cloud_credits.pdf', 'Credits + bootcamp support.'),
+  (7, 'University Outreach Partnership', 12, 'Partnership', '2023-03-01', '2026-02-28', 'Active', '/files/agreements/opened_outreach.pdf', 'Scholarships and outreach.');
+
 
 INSERT INTO ContactPoint (contact_id, partner_id, name, email, phone, position, is_primary_contact) VALUES
   (1, 1, 'Narin S.', 'narin@acmerobotics.example', '+66-2-555-0101', 'Partnership Manager', 1),
