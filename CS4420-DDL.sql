@@ -71,7 +71,6 @@ CREATE TABLE Agreement (
   title          VARCHAR(255) NOT NULL,
   affiliation_id INT NOT NULL,
   agreement_type ENUM('MoUs','Contracts','LoIs'),
-  status         ENUM('Prospect','Active','Inactive','Suspended'),
   start_date     DATE,
   end_date       DATE,
   file_link      VARCHAR(255),
@@ -144,7 +143,8 @@ CREATE TABLE Invoice (
 );
 
 CREATE TABLE Payment (
-  invoice_id         INT PRIMARY KEY,
+  payment_id         INT AUTO_INCREMENT PRIMARY KEY,
+  invoice_id         INT NOT NULL UNIQUE,
   payment_date       DATE NOT NULL,
   amount             DECIMAL(12,2) NOT NULL,
   payment_method     ENUM('Cash','Bank Transfer','E-Wallet'),
