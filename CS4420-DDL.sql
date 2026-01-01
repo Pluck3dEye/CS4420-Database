@@ -18,7 +18,7 @@ CREATE TABLE OrganizationalUnit (
   unit_id   INT AUTO_INCREMENT PRIMARY KEY,
   name      VARCHAR(255) NOT NULL,
   unit_type ENUM('University','Faculty','Department','Lab','Center'),
-  description TEXT
+  description TEXT,
 ,  UNIQUE (name, unit_type)
 );
 
@@ -42,24 +42,18 @@ CREATE TABLE CollaborationEvent (
   location             VARCHAR(255),
   start_date           DATE,
   end_date             DATE,
-  participants_count   INT,
-  estimated_value      DECIMAL(12,2),
-  notes                TEXT,
   CONSTRAINT fk_event_primary_partner
     FOREIGN KEY (primary_partner_id)
     REFERENCES Partner(partner_id)
     ON DELETE RESTRICT
 );
 
--- Relationship entities
 CREATE TABLE PartnerAffiliation (
   affiliation_id INT AUTO_INCREMENT PRIMARY KEY,
   partner_id     INT NOT NULL,
   unit_id        INT NOT NULL,
   start_date     DATE NOT NULL,
   remarks        TEXT,
-  status         ENUM('Prospect','Active','Inactive','Suspended'),
-  notes          TEXT,
   UNIQUE KEY uq_affiliation_partner_unit (partner_id, unit_id),
   CONSTRAINT fk_affiliation_partner
     FOREIGN KEY (partner_id)
@@ -76,12 +70,11 @@ CREATE TABLE Agreement (
   agreement_id   INT AUTO_INCREMENT PRIMARY KEY,
   title          VARCHAR(255) NOT NULL,
   affiliation_id INT NOT NULL,
-  agreement_type VARCHAR(100),
+  agreement_type ENUM('MoUs','Contracts','LoIs'),
+  status         ENUM('Prospect','Active','Inactive','Suspended'),
   start_date     DATE,
   end_date       DATE,
-  status         ENUM('Prospect','Active','Inactive','Suspended'),
   file_link      VARCHAR(255),
-  notes          TEXT,
   CONSTRAINT fk_agreement_affiliation
     FOREIGN KEY (affiliation_id)
     REFERENCES PartnerAffiliation(affiliation_id)
@@ -124,7 +117,7 @@ CREATE TABLE Contribution (
   event_id          INT,
   contribution_type VARCHAR(100),
   description       TEXT,
-  amount            DECIMAL(12,2),
+  estimated_value   DECIMAL(12,2),
   notes             TEXT,
   CONSTRAINT fk_contrib_partner
     FOREIGN KEY (partner_id)
@@ -154,7 +147,7 @@ CREATE TABLE Payment (
   invoice_id         INT PRIMARY KEY,
   payment_date       DATE NOT NULL,
   amount             DECIMAL(12,2) NOT NULL,
-  payment_method     VARCHAR(50),
+  payment_method     ENUM('Cash','Bank Transfer','E-Wallet'),
   payment_reference  VARCHAR(100),
   CONSTRAINT fk_payment_invoice
     FOREIGN KEY (invoice_id)
