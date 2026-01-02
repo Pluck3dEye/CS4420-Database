@@ -19,7 +19,7 @@ CREATE TABLE OrganizationalUnit (
   name      VARCHAR(255) NOT NULL,
   unit_type ENUM('University','Faculty','Department','Lab','Center'),
   description TEXT,
-,  UNIQUE (name, unit_type)
+  UNIQUE (name, unit_type)
 );
 
 CREATE TABLE Partner (
